@@ -14,12 +14,22 @@
   <tr>
     <th>ID</th>
     <th>名前</th>
+    <th>操作</th>
+
   </tr>
   </thead>
   <tbody>
   <tr th:each="student : ${students}">
     <td th:text="${student.id}">1</td>
     <td th:text="${student.name}">山田</td>
+
+    <td>
+      <form th:action="@{/students/delete/{id}(id=${student.id})}" method="post"
+            onsubmit="return confirm('本当に削除しますか？');" style="margin: 0;">
+        <button type="submit">削除</button>
+      </form>
+    </td>
+
   </tr>
   </tbody>
 </table>
