@@ -1,0 +1,119 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.5.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'sekigae_right'
+version = '0.0.1-SNAPSHOT'
+description = 'sekigae_right'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    //デフォルトですべてのエンドポイントにセキュリティを適用し、認証（ログイン画面を表示させる）を要求します。
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // Database
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.h2database:h2' // テスト用H2データベース
+
+    // Development Tools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Annotation Processing
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //OpenAPI Generator
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+
+    // JSON Processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    // Utility Libraries
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation 'org.apache.commons:commons-collections4:4.4'
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+    testImplementation 'org.mockito:mockito-core:5.7.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.7.0'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.testcontainers:junit-jupiter:1.19.3'
+    testImplementation 'org.testcontainers:mysql:1.19.3'
+
+    // Documentation (Spring REST Docs用)
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    // ↓ Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // ↓ Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     //:3.4.3'
+
+    //↓ Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //OpenAPI Generator
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
+
+    //　↓　便利機能　↓
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+
+    //Lombok ↓
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+    //MySQLドライバ
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    //MyBatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+
+    //APサーバー(Tomcat)
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    //SpringBoot Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //MyBatis Test
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
+
+    //H2(InMemoryDB)
+    testImplementation 'com.h2database:h2:2.3.232'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

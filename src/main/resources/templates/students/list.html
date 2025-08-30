@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>生徒一覧</title>
+</head>
+<body>
+<div class="nav-links">
+  <a th:href="@{/students/new}">生徒追加</a>
+</div>
+<h1>生徒一覧</h1>
+<table border="2" cellpadding="8" cellspacing="0">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>名前</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="student : ${students}">
+    <td th:text="${student.id}">1</td>
+    <td th:text="${student.name}">山田</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

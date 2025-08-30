@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>新規登録</title>
+</head>
+<body>
+<div class="nav-links">
+  <a th:href="@{/students}">生徒一覧へ</a>
+  <!--  ↑コントローラーの @GetMapping("/students") へ飛ぶ-->
+</div>
+<h1>新規登録</h1>
+<div class="card">
+
+  <!--    button を押すと、コントローラーの @PostMapping("/students")が動く　
+  このstudentsはth:action="@{/students}"に連動-->
+  <form th:action="@{/students}" th:object="${student}" method="post">
+    　<!--  　　　　　　　　　　　　　　　　　　　　　　↑ このstudentはStudentController.javaの
+registerメソッドの引数の student に連動  　-->
+    <label for="name">名前：</label>
+    <input type="text" id="name" th:field="*{name}">
+
+    <!-- バリデーションエラー表示 -->
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></div>
+    <br><br>
+
+    <button type="submit">登録</button>
+    <!--    button を押すと、コントローラーの @PostMapping("/students")が動く-->
+  </form>
+
+  <!-- 全般的なエラーメッセージ表示 -->
+  <div th:if="${seatError}" th:text="${seatError}" style="color: red;"></div>
+</div>
+</body>
+</html>
