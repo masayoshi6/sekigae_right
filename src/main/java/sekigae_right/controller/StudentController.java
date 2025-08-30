@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sekigae_right.data.Student;
@@ -25,7 +26,7 @@ public class StudentController {
    */
   @GetMapping
   public String allStudent(Model model) {
-    List<Student> students = service.allStudent();
+    List<Student> students = service.getAllActiveUsers();
     model.addAttribute("students", students);
     return "students/list";
   }
@@ -35,7 +36,7 @@ public class StudentController {
    */
   @GetMapping("/new")
   public String show(Model model) {
-    List<Student> students = service.allStudent();
+    // List<Student> students = service.allStudent();
     model.addAttribute("student", new Student());
     return "students/create";
   }
@@ -56,4 +57,10 @@ public class StudentController {
     //　　　　　　　　　↑ @GetMapping の allStudent()メソッドの呼び出し
   }
 
+  @PostMapping("/delete/{id}")
+  public String deleteStudent(@PathVariable Integer id) {
+    service.deleteStudent(id);
+    return "redirect:/students";
+    // 生徒一覧にリダイレクト（@GetMappingのallStudentメソッドが動き、list.htmlを表示させる
+  }
 }

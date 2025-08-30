@@ -28,4 +28,8 @@ public class Student {
   @Column(nullable = false)
   private String name;
 
+  @Builder.Default
+  @Column(name = "deleted", nullable = false)
+  private boolean deleted = false; // デフォルトはfalse
+
 }
