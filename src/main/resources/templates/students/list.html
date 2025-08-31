@@ -7,6 +7,7 @@
 <body>
 <div class="nav-links">
   <a th:href="@{/students/new}">生徒追加</a>
+  <a th:href="@{/students/seating}">🪑 座席表に戻る</a>
 </div>
 <h1>生徒一覧</h1>
 <table border="2" cellpadding="8" cellspacing="0">
@@ -14,6 +15,9 @@
   <tr>
     <th>ID</th>
     <th>名前</th>
+    <th>性別</th>
+    <th>行</th>
+    <th>列</th>
     <th>操作</th>
 
   </tr>
@@ -22,6 +26,9 @@
   <tr th:each="student : ${students}">
     <td th:text="${student.id}">1</td>
     <td th:text="${student.name}">山田</td>
+    <td th:text="${student.gender}">男子</td>
+    <td th:text="${student.seatRow}">5</td>
+    <td th:text="${student.seatColumn}">2</td>
 
     <td>
       <form th:action="@{/students/delete/{id}(id=${student.id})}" method="post"

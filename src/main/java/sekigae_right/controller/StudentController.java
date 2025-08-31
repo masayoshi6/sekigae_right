@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,8 +46,18 @@ public class StudentController {
    * 生徒の新規登録(POST)
    */
   @PostMapping
-  public String register(@Valid @ModelAttribute Student student, Model model) {
+  public String register(@Valid @ModelAttribute Student student,
+      BindingResult bindingResult, Model model) {
     //この student はcreate.htmlのth:object="${student}"と連動
+
+    // バリデーションエラーがある場合は同じフォーム画面に戻る
+    if (bindingResult.hasErrors()) {
+      return "students/create";
+      //これにより、名前が空欄だったり、座席の値が範囲外の場合に同じフォーム画面に戻り、
+      //エラーメッセージが表示されます。
+
+    }
+
     try {
       service.register(student);
     } catch (IllegalArgumentException e) {
@@ -62,5 +73,11 @@ public class StudentController {
     service.deleteStudent(id);
     return "redirect:/students";
     // 生徒一覧にリダイレクト（@GetMappingのallStudentメソッドが動き、list.htmlを表示させる
+  }
+
+  @GetMapping("/seating")
+  public String seatdisplay(Model model) {
+
+    return "students/";
   }
 }
