@@ -58,6 +58,7 @@
 <div class="nav-links">
   <a th:href="@{/students}">生徒一覧へ</a>
   <!--  ↑コントローラーの @GetMapping("/students") へ飛ぶ-->
+  <a th:href="@{/students/seating}">🪑 座席表に戻る</a>
 </div>
 <h1>新規登録</h1>
 <div class="card">
@@ -89,13 +90,13 @@ registerメソッドの引数の student に連動  　-->
 
     <div class="form-group">
       <label for="seatRow">行：</label>
-      <input type="number" id="seatRow" th:field="*{seatRow}" min="3" max="7">
+      <input type="number" id="seatRow" th:field="*{seatRow}" min="1" max="7">
       <div th:if="${#fields.hasErrors('seatRow')}" th:errors="*{seatRow}" class="error"></div>
     </div>
 
     <div class="form-group">
       <label for="seatColumn">列：</label>
-      <input type="number" id="seatColumn" th:field="*{seatColumn}" min="3" max="7">
+      <input type="number" id="seatColumn" th:field="*{seatColumn}" min="1" max="7">
       <div th:if="${#fields.hasErrors('seatColumn')}" th:errors="*{seatColumn}" class="error"></div>
     </div>
 

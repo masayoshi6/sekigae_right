@@ -38,12 +38,12 @@ public class Student {
 
   //@Columnアノテーションをつけない場合はフィールド名(seatRow)がそのままカラム名になる
   @NotNull(message = "座席の行を入力してください")
-  @Min(value = 3, message = "座席（行）は3以上にしてください")
+  @Min(value = 1, message = "座席（行）は1以上にしてください")
   @Max(value = 7, message = "座席（行）は7以下にしてください")
   private Integer seatRow;
 
   @NotNull(message = "座席の列を入力してください")
-  @Min(value = 3, message = "座席（列）は3以上にしてください")
+  @Min(value = 1, message = "座席（列）は1以上にしてください")
   @Max(value = 7, message = "座席（列）は7以下にしてください")
   private Integer seatColumn;
 
