@@ -92,4 +92,28 @@ public class StudentController {
     model.addAttribute("seatMap", seatMap);
     return "students/seating";
   }
+
+  @PostMapping("/shuffle")
+  public String shuffleStudent(Model model) {
+    try {
+      Map<String, Student> seatMap = new HashMap<>();
+      Student[][] students = service.shuffleSeatingChart(7, 7);
+
+      for (Student[] stu1 : students) {
+        for (Student stu2 : stu1) {
+          if (stu2 != null) {
+            String key = stu2.getSeatRow() + "," + stu2.getSeatColumn();
+            seatMap.put(key, stu2);
+          }
+        }
+      }
+
+      model.addAttribute("seatMap", seatMap);
+      return "students/seating";
+
+    } catch (Exception e) {
+      // エラーが発生した場合は元の座席表を表示
+      return showSeatingChart(model);
+    }
+  }
 }

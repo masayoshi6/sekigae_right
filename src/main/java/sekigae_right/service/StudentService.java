@@ -56,7 +56,8 @@ public class StudentService {
    * @return シャッフル後の座席配置
    */
   public Student[][] shuffleSeatingChart(int rows, int columns) {
-    List<Student> allStudents = repository.findAll();
+    // 🔥 修正点1：アクティブな生徒のみ取得
+    List<Student> allStudents = repository.findAllByDeletedFalse();
     Collections.shuffle(allStudents); // ← ランダムに並び替え
 
     Student[][] chart = new Student[rows][columns];
@@ -65,7 +66,16 @@ public class StudentService {
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < columns; c++) {
         if (index < allStudents.size()) {
-          chart[r][c] = allStudents.get(index++);
+          Student student = allStudents.get(index++);
+
+          // 🔥 修正点2：新しい座席位置を設定
+          student.setSeatRow(r + 1);     // 1-based indexing
+          student.setSeatColumn(c + 1);  // 1-based indexing
+
+          // 🔥 修正点3：データベースに保存
+          repository.save(student);
+
+          chart[r][c] = student;
         }
       }
     }

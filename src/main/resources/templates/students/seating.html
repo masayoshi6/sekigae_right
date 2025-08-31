@@ -184,6 +184,10 @@
     <h2>席替え条件</h2>
     <p>ここに将来的に席替えの条件や設定項目を追加予定</p>
     <!-- 今後、席替えの条件設定フォームなどを追加 -->
+    <form th:action="@{/students/shuffle}" method="post"
+          onsubmit="return confirm('座席をシャッフルしますか？');" style="margin: 0;">
+      <button type="submit">席替え</button>
+    </form>
   </div>
 </div>
 </body>
