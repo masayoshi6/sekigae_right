@@ -1,7 +1,9 @@
 package sekigae_right.controller;
 
 import jakarta.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,9 +77,19 @@ public class StudentController {
     // 生徒一覧にリダイレクト（@GetMappingのallStudentメソッドが動き、list.htmlを表示させる
   }
 
+  // 🆕 座席表表示用メソッド
   @GetMapping("/seating")
-  public String seatdisplay(Model model) {
+  public String showSeatingChart(Model model) {
+    List<Student> students = service.getAllActiveUsers();
 
-    return "students/";
+    // 座席マップを作成（行,列 → 生徒の対応）
+    Map<String, Student> seatMap = new HashMap<>();
+    for (Student student : students) {
+      String key = student.getSeatRow() + "," + student.getSeatColumn();
+      seatMap.put(key, student);
+    }
+
+    model.addAttribute("seatMap", seatMap);
+    return "students/seating";
   }
 }

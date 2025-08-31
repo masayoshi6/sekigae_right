@@ -1,5 +1,6 @@
 package sekigae_right.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,29 @@ public class StudentService {
   public List<Student> getAllActiveUsers() {
     return repository.findAllByDeletedFalse(); // 論理削除フラグがfalseのデータのみ取得
   }
-  
+
+  /**
+   * 生徒の座席をシャッフルします
+   *
+   * @param rows    座席の行数
+   * @param columns 座席の列数
+   * @return シャッフル後の座席配置
+   */
+  public Student[][] shuffleSeatingChart(int rows, int columns) {
+    List<Student> allStudents = repository.findAll();
+    Collections.shuffle(allStudents); // ← ランダムに並び替え
+
+    Student[][] chart = new Student[rows][columns];
+    int index = 0;
+
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < columns; c++) {
+        if (index < allStudents.size()) {
+          chart[r][c] = allStudents.get(index++);
+        }
+      }
+    }
+
+    return chart;
+  }
 }
